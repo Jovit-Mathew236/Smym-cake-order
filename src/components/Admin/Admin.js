@@ -10,15 +10,15 @@ function Admin() {
     const [users, setUsers] = useState([])
     const [sectionD, setSectionD] = useState('Orders')
     // var TRow =  $("#dataTable tr").length
-    firebase.firestore().collection(sectionD+2).doc("MdgtAnaVVDzYMAPgQJIP").get().then((res) => {
+    firebase.firestore().collection(sectionD + 2).doc("MdgtAnaVVDzYMAPgQJIP").get().then((res) => {
         setDeliverNo(res.data().Number)
         // console.log(res.data());
     })
-    firebase.firestore().collection(sectionD+2).doc("cnums").get().then((res) => {
+    firebase.firestore().collection(sectionD + 2).doc("cnums").get().then((res) => {
         setClosedNo(res.data().Numbers)
         // console.log(res);
-    }).catch((error)=>{
-        console.log(error.message); 
+    }).catch((error) => {
+        console.log(error.message);
     })
     useEffect(() => {
         firebase.firestore().collection(sectionD).get().then((snapshot) => {
@@ -101,8 +101,12 @@ function Admin() {
                                     <td>{user.House_name}</td>
                                     <td>{user.Address}</td>
                                     <td>{user.Section}</td>
-                                    <td>{user.Items[0].items} ({user.Items[0].kg}) [{user.Items[0].nos}]</td>
-                                    <td>{user.Price}</td>
+                                    <td>{user.Items.map((obj, index) => {
+                                        return (
+                                            <li key={index} style={{ listStyle: "none" }}>{index + 1} {" "} {obj.items} ({obj.kg}) [{obj.nos}]</li>
+                                        )
+                                    })}</td>
+                                    <td>{user.Items[user.Items.length - 1].price}</td>
                                     {/* {user.Paid ? myFun : null} */}
                                     <td style={sectionD === "Orders" ? { display: "none" } : null}>{user.Deliverd ? "Yes" : "No"}</td>
                                     <td style={sectionD === "Orders" ? { display: "none" } : null}>{user.Paid ? "Yes" : "No"}</td>

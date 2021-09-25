@@ -81,9 +81,9 @@ table tr th, td, table {
     padding: .2rem 1rem;
     border: 1px solid black;
 }
-tr:nth-child(even){
-    background-color: #ff8d0047;
-}
+/* tr:nth-child(even){
+    background-color: #ff8d00b8;
+} */
 table th {
     font-size: x-large;
     font-weight: 600;

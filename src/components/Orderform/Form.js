@@ -17,6 +17,7 @@ function Form() {
     const [kg, setKg] = useState('')
     const [nos, setNos] = useState('')
 
+    // const [priSet, setPriSet] = useState(0)
     const [itemArray, setItemArray] = useState([])
     const [divMap, setDivMap] = useState([1])
     const date = new Date()
@@ -46,8 +47,16 @@ function Form() {
         }
         
     }
-
-    console.log(itemArray);
+    // let pri =[]
+    // itemArray.forEach((element) => {
+    //     let pri2 =0
+    //     pri2 = pri2 +element.price
+    //     pri = [...pri, pri2]
+        
+    // })
+    // console.log(pri[pri.length-1]);
+    // console.log(itemArray);
+    
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -212,6 +221,7 @@ function Form() {
                                         </select>
                                         <select name="Nos" className="item" onChange={(e) => {
                                             setNos(e.target.value)
+                                            setPrice(price*nos)
                                         }} required>
                                             <option value="">Nos.</option>
                                             <option value="1">1</option>
