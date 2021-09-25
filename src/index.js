@@ -7,11 +7,13 @@ import firebase from './firebase/Config'
 import {FirebaseContext} from './store/Contexts'
 
 ReactDOM.render(
+  <React.StrictMode>
     <HashRouter>
       <FirebaseContext.Provider value={{ firebase }}>
         <App />
       </FirebaseContext.Provider>
-    </HashRouter>,
+    </HashRouter>
+  </React.StrictMode>,
   document.getElementById('root')
 );
 
