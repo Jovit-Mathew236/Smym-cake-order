@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/smym-cake-order/static/css/main.fbebed11.chunk.css",
-    "main.js": "/smym-cake-order/static/js/main.7df088a8.chunk.js",
-    "main.js.map": "/smym-cake-order/static/js/main.7df088a8.chunk.js.map",
+    "main.js": "/smym-cake-order/static/js/main.dcbda60e.chunk.js",
+    "main.js.map": "/smym-cake-order/static/js/main.dcbda60e.chunk.js.map",
     "runtime-main.js": "/smym-cake-order/static/js/runtime-main.38a634de.js",
     "runtime-main.js.map": "/smym-cake-order/static/js/runtime-main.38a634de.js.map",
-    "static/js/2.e928e0a5.chunk.js": "/smym-cake-order/static/js/2.e928e0a5.chunk.js",
-    "static/js/2.e928e0a5.chunk.js.map": "/smym-cake-order/static/js/2.e928e0a5.chunk.js.map",
+    "static/js/2.1b6d7cec.chunk.js": "/smym-cake-order/static/js/2.1b6d7cec.chunk.js",
+    "static/js/2.1b6d7cec.chunk.js.map": "/smym-cake-order/static/js/2.1b6d7cec.chunk.js.map",
     "index.html": "/smym-cake-order/index.html",
     "static/css/main.fbebed11.chunk.css.map": "/smym-cake-order/static/css/main.fbebed11.chunk.css.map",
-    "static/js/2.e928e0a5.chunk.js.LICENSE.txt": "/smym-cake-order/static/js/2.e928e0a5.chunk.js.LICENSE.txt",
+    "static/js/2.1b6d7cec.chunk.js.LICENSE.txt": "/smym-cake-order/static/js/2.1b6d7cec.chunk.js.LICENSE.txt",
     "static/media/About.css": "/smym-cake-order/static/media/Aboutbg.0127d357.jpg",
     "static/media/Cake.css": "/smym-cake-order/static/media/marble.4b765846.jpg",
     "static/media/Header.css": "/smym-cake-order/static/media/bg5.ff1ce87f.jpg",
@@ -18,8 +18,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.38a634de.js",
-    "static/js/2.e928e0a5.chunk.js",
+    "static/js/2.1b6d7cec.chunk.js",
     "static/css/main.fbebed11.chunk.css",
-    "static/js/main.7df088a8.chunk.js"
+    "static/js/main.dcbda60e.chunk.js"
   ]
 }
