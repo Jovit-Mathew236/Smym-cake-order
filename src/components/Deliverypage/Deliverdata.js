@@ -112,7 +112,7 @@ function Deliverdata() {
                                                 <li key={index} style={{ listStyle: "none" }}>{index + 1} {" "} {obj.items} ({obj.kg}) [{obj.nos}]</li>
                                             )
                                         })}</td>
-                                        <td>{user.Items[user.Items.length - 1].price}</td>
+                                        <td>{user.Price}</td>
                                         <td style={sectionD === "Orders" ? { display: "none" } : null}><input disabled={user.Deliverd ? true : inpStatus} checked={user.Deliverd} onChange={(e) => {
                                             firebase.firestore().collection(sectionD).doc(user.id).update({
                                                 Deliverd: e.target.checked

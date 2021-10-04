@@ -15,52 +15,71 @@ function Form() {
     const [price, setPrice] = useState(0)
     const [items, setItems] = useState('')
     const [kg, setKg] = useState('')
-    const [nos, setNos] = useState('')
+    const [nos, setNos] = useState("0")
 
-    // const [priSet, setPriSet] = useState(0)
     const [itemArray, setItemArray] = useState([])
     const [divMap, setDivMap] = useState([1])
     const date = new Date()
     const count = divMap.length
     const addItem = () => {
-        if(items !== ""){
-            if(kg !== "" && nos !==""){
+        if (items !== "") {
+            if (kg !== "" && nos !== "") {
                 setDivMap([...divMap, count + 1])
                 setItemArray([...itemArray, { price, items, kg, nos }])
-            }else{
-                alert("please fill the item details")
+
+            } else {
+                alert("Please fill the item details")
             }
-        }else{
-            alert("please fill the item details")
+        } else {
+            alert("Please fill the item details")
         }
     }
 
-    const myFunc=()=>{
-        if(section !== "" && items !== ""){
-            if(kg !== "" && nos !==""){
-                if(name !== "" && address !==""){
-                    if(phone !== "" && house !== ""){
+    const myFunc = () => {
+        if (section !== "" && items !== "") {
+            if (kg !== "" && nos !== "") {
+                if (name !== "" && address !== "") {
+                    if (phone !== "" && house !== "") {
                         setItemArray([...itemArray, { price, items, kg, nos }])
                     }
                 }
             }
         }
-        
+
     }
-    // let pri =[]
-    // itemArray.forEach((element) => {
-    //     let pri2 =0
-    //     pri2 = pri2 +element.price
-    //     pri = [...pri, pri2]
-        
-    // })
-    // console.log(pri[pri.length-1]);
+    let pri = []
+    itemArray.forEach((element) => {
+        // console.log(element);
+        let pri2 = 0
+        pri2 += element.price
+        pri = [...pri, pri2]
+    })
+
+
+    var varpri = pri.reduce((a, b) => a + b, 0)
+    console.log(varpri);
+
+
+
     // console.log(itemArray);
-    
+
 
     const handleSubmit = (e) => {
         e.preventDefault()
-            firebase.firestore().collection('Orders').add({
+        firebase.firestore().collection('Orders').add({
+            Name: name,
+            Phone_No: phone,
+            House_name: house,
+            Section: section,
+            Items: itemArray,
+            Address: address,
+            CreatedDate: date.toDateString(),
+            Price: varpri
+        }).catch((error) => {
+            console.log(error.message);
+        })
+        if (section === "Plassanal") {
+            firebase.firestore().collection('Orders-plassanal').add({
                 Name: name,
                 Phone_No: phone,
                 House_name: house,
@@ -68,92 +87,79 @@ function Form() {
                 Items: itemArray,
                 Address: address,
                 CreatedDate: date.toDateString(),
-                Price: price * nos
+                Price: varpri,
+                Deliverd: false,
+                Paid: false,
+                Comment: ""
+            }).then(() => {
+                alert("You successfully Ordered")
+                history.go(0)
             }).catch((error) => {
                 console.log(error.message);
             })
-            if (section === "Plassanal") {
-                firebase.firestore().collection('Orders-plassanal').add({
-                    Name: name,
-                    Phone_No: phone,
-                    House_name: house,
-                    Section: section,
-                    Items: itemArray,
-                    Address: address,
-                    CreatedDate: date.toDateString(),
-                    Price: price * nos,
-                    Deliverd: false,
-                    Paid: false,
-                    Comment: ""
-                }).then(() => {
-                    alert("You successfully Ordered")
-                    history.go(0)
-                }).catch((error) => {
-                    console.log(error.message);
-                })
-            }
-            if (section === "Panakkapalam") {
-                firebase.firestore().collection('Orders-Panakkapalam').add({
-                    Name: name,
-                    Phone_No: phone,
-                    House_name: house,
-                    Section: section,
-                    Items: itemArray,
-                    Address: address,
-                    CreatedDate: date.toDateString(),
-                    Price: price * nos,
-                    Deliverd: false,
-                    Paid: false,
-                    Comment: ""
-                }).then(() => {
-                    alert("You successfully Ordered")
-                    history.go(0)
-                }).catch((error) => {
-                    console.log(error.message);
-                })
-            }
-            if (section === "Place 3") {
-                firebase.firestore().collection('Orders-Place3').add({
-                    Name: name,
-                    Phone_No: phone,
-                    House_name: house,
-                    Section: section,
-                    Items: itemArray,
-                    Address: address,
-                    CreatedDate: date.toDateString(),
-                    Price: price * nos,
-                    Deliverd: false,
-                    Paid: false,
-                    Comment: ""
-                }).then(() => {
-                    alert("You successfully Ordered")
-                    history.go(0)
-                }).catch((error) => {
-                    console.log(error.message);
-                })
+        }
+        if (section === "Panakkapalam") {
+            firebase.firestore().collection('Orders-Panakkapalam').add({
+                Name: name,
+                Phone_No: phone,
+                House_name: house,
+                Section: section,
+                Items: itemArray,
+                Address: address,
+                CreatedDate: date.toDateString(),
+                Price: varpri,
+                Deliverd: false,
+                Paid: false,
+                Comment: ""
+            }).then(() => {
+                alert("You successfully Ordered")
+                history.go(0)
+            }).catch((error) => {
+                console.log(error.message);
+            })
+        }
+        if (section === "Place 3") {
+            firebase.firestore().collection('Orders-Place3').add({
+                Name: name,
+                Phone_No: phone,
+                House_name: house,
+                Section: section,
+                Items: itemArray,
+                Address: address,
+                CreatedDate: date.toDateString(),
+                Price: varpri,
+                Deliverd: false,
+                Paid: false,
+                Comment: ""
+            }).then(() => {
+                alert("You successfully Ordered")
+                history.go(0)
+            }).catch((error) => {
+                console.log(error.message);
+            })
 
-            }
-            if (section === "Place 4") {
-                firebase.firestore().collection('Orders-Place4').add({
-                    Name: name,
-                    Phone_No: phone,
-                    House_name: house,
-                    Section: section,
-                    Items: itemArray,
-                    Address: address,
-                    CreatedDate: date.toDateString(),
-                    Price: price * nos,
-                    Deliverd: false,
-                    Paid: false,
-                    Comment: ""
-                }).then(() => {
-                    alert("You successfully Ordered")
-                    history.go(0)
-                }).catch((error) => {
-                    console.log(error.message);
-                })
-            }
-        
+        }
+        if (section === "Place 4") {
+            firebase.firestore().collection('Orders-Place4').add({
+                Name: name,
+                Phone_No: phone,
+                House_name: house,
+                Section: section,
+                Items: itemArray,
+                Address: address,
+                CreatedDate: date.toDateString(),
+                Price: varpri,
+                Deliverd: false,
+                Paid: false,
+                Comment: ""
+            }).then(() => {
+                alert("You successfully Ordered")
+                history.go(0)
+            }).catch((error) => {
+                console.log(error.message);
+            })
+        }
+
 
     }
     return (
@@ -180,16 +186,16 @@ function Form() {
                                         <select name="Items" className="item" onChange={(e) => {
                                             setItems(e.target.value);
                                             if (e.target.value === "Marble Cake") {
-                                                setPrice(price + 350)
+                                                setPrice(110)
                                             }
                                             if (e.target.value === "Pinapple Cake") {
-                                                setPrice(price + 300)
+                                                setPrice(150)
                                             }
                                             if (e.target.value === "Plum Cake") {
-                                                setPrice(price + 250)
+                                                setPrice(110)
                                             }
                                             if (e.target.value === "Carrot Cake") {
-                                                setPrice(price + 320)
+                                                setPrice(150)
                                             }
                                         }} required>
                                             <option value="">Cake</option>
@@ -200,28 +206,55 @@ function Form() {
                                         </select>
                                         <select name="Kg" className="item" onChange={(e) => {
                                             setKg(e.target.value)
-                                            if (e.target.value === "500Kg") {
-                                                setPrice(price - 50)
-                                            }
-                                            if (e.target.value === "1Kg") {
+                                            if (e.target.value === "400g") {
                                                 setPrice(price)
                                             }
-                                            if (e.target.value === "1.5Kg") {
-                                                setPrice(50 + price)
+                                            if (e.target.value === "700g") {
+                                                setPrice(price + price)
                                             }
-                                            if (e.target.value === "2Kg") {
-                                                setPrice(100 + price)
+                                            if (e.target.value === "700g" && items === "Plum Cake") {
+                                                setPrice(price + price - 20)
                                             }
                                         }} required>
                                             <option value="">Select Kg</option>
-                                            <option value="500Kg">500Kg</option>
-                                            <option value="1Kg">1Kg</option>
-                                            <option value="1.5Kg">1.5Kg</option>
-                                            <option value="2Kg">2Kg</option>
+                                            <option value="400g">400g</option>
+                                            <option value="700g">700g</option>
                                         </select>
-                                        <select name="Nos" className="item" onChange={(e) => {
+                                        <select name="Nos" className="item" onChange={async (e) => {
+                                            const value = e.target.value
                                             setNos(e.target.value)
-                                            setPrice(price*nos)
+                                            if (value === '1') {
+                                                setPrice(price * 1)
+                                            }
+                                            if (value === '2') {
+                                                setPrice(price * 2)
+                                            }
+                                            if (value === '3') {
+                                                setPrice(price * 3)
+                                            }
+                                            if (value === '4') {
+                                                setPrice(price * 4)
+                                            }
+                                            if (value === '5') {
+                                                setPrice(price * 5)
+                                            }
+                                            if (value === '6') {
+                                                setPrice(price * 6)
+                                            }
+                                            if (value === '7') {
+                                                setPrice(price * 7)
+                                            }
+                                            if (value === '8') {
+                                                setPrice(price * 8)
+                                            }
+                                            if (value === '9') {
+                                                setPrice(price * 9)
+                                            }
+                                            if (value === '10') {
+                                                setPrice(price * 10)
+                                            }
+                                            let varpri = pri.reduce((a, b) => a + b, 0)
+                                            console.log(varpri);
                                         }} required>
                                             <option value="">Nos.</option>
                                             <option value="1">1</option>
@@ -235,72 +268,15 @@ function Form() {
                                             <option value="9">9</option>
                                             <option value="10">10</option>
                                         </select>
-
                                     </div>
                                 )
                             })}<p className="additem-btn" onClick={addItem}>+</p>
 
 
-                            {/* <div className="itmesDiv">
-                                <select name="Items" className="item" value={items} onChange={(e) => {
-                                    setItems(e.target.value);
-                                    if (e.target.value === "Marble Cake") {
-                                        setPrice(price + 350)
-                                    }
-                                    if (e.target.value === "Pinapple Cake") {
-                                        setPrice(price + 300)
-                                    }
-                                    if (e.target.value === "Plum Cake") {
-                                        setPrice(price + 250)
-                                    }
-                                    if (e.target.value === "Carrot Cake") {
-                                        setPrice(price + 320)
-                                    }
-                                }} required>
-                                    <option value="">Cake</option>
-                                    <option value="Marble Cake">Marble Cake</option>
-                                    <option value="Pinapple Cake">Pinapple Cake</option>
-                                    <option value="Plum Cake">Plum Cake</option>
-                                    <option value="Carrot Cake">Carrot Cake</option>
-                                </select>
-                                <select name="Kg" className="item" value={kg} onChange={(e) => {
-                                    setKg(e.target.value)
-                                    if (e.target.value === "500Kg") {
-                                        setPrice(price - 50)
-                                    }
-                                    if (e.target.value === "1Kg") {
-                                        setPrice(price)
-                                    }
-                                    if (e.target.value === "1.5Kg") {
-                                        setPrice(50 + price)
-                                    }
-                                    if (e.target.value === "2Kg") {
-                                        setPrice(100 + price)
-                                    }
-                                }} required>
-                                    <option value="">Select Kg</option>
-                                    <option value="500Kg">500Kg</option>
-                                    <option value="1Kg">1Kg</option>
-                                    <option value="1.5Kg">1.5Kg</option>
-                                    <option value="2Kg">2Kg</option>
-                                </select>
-                                <select name="Nos" className="item" value={nos} onChange={(e) => { setNos(e.target.value) }} required>
-                                    <option value="">Nos.</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                            </div> */}
+
                             <textarea name="" id="" value={address} onChange={(e) => {
                                 setAddress(e.target.value)
-                                }} placeholder="Delivery Address..." cols="30" rows="5" required></textarea>
+                            }} placeholder="Delivery Address..." cols="30" rows="5" required></textarea>
                             <input type="submit" className="FormSub" value="Submit" onClick={myFunc} />
                         </form>
                     </div>
