@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/smym-cake-order/static/css/main.7f85b8d1.chunk.css",
-    "main.js": "/smym-cake-order/static/js/main.9f185f64.chunk.js",
-    "main.js.map": "/smym-cake-order/static/js/main.9f185f64.chunk.js.map",
+    "main.js": "/smym-cake-order/static/js/main.f7b7e8de.chunk.js",
+    "main.js.map": "/smym-cake-order/static/js/main.f7b7e8de.chunk.js.map",
     "runtime-main.js": "/smym-cake-order/static/js/runtime-main.38a634de.js",
     "runtime-main.js.map": "/smym-cake-order/static/js/runtime-main.38a634de.js.map",
     "static/js/2.1779cab9.chunk.js": "/smym-cake-order/static/js/2.1779cab9.chunk.js",
@@ -20,6 +20,6 @@
     "static/js/runtime-main.38a634de.js",
     "static/js/2.1779cab9.chunk.js",
     "static/css/main.7f85b8d1.chunk.css",
-    "static/js/main.9f185f64.chunk.js"
+    "static/js/main.f7b7e8de.chunk.js"
   ]
 }
