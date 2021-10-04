@@ -3,9 +3,11 @@ import './Header.css'
 import Arrow from '../../assets/Arrow'
 import Menu from '../../assets/Menu'
 import Times from '../../assets/Times'
+import { useHistory } from 'react-router'
 function Header() {
     const [menuBtn, setMenuBtn] = useState(<Menu></Menu>)
     const height = window.screen.height
+    const history = useHistory()
     const menuFunction = () => {
         console.log(menuBtn.type.name);
         if (menuBtn.type.name === "m") {
@@ -22,13 +24,14 @@ function Header() {
     const scrollScreen2 = () => {
         window.scrollBy(0, height + height + 200)
     }
+    const funC = () => history.push('/admin')
     return (
         <div>
             <div className="home">
                 <div className="header">
                     <div className="headerChild">
                         <div className="logo">
-                            <div src="" alt="" />
+                            <div onClick={funC} src="" alt="" />
                         </div>
                         <div id="menu" >
                             <p onClick={scrollScreen}>Order</p>

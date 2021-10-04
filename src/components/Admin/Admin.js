@@ -42,6 +42,11 @@ function Admin() {
         ele.classList.toggle("body2")
     }
 
+    let arrpri = []
+    users.forEach((num) => arrpri = [...arrpri, num.Price])
+    let recpri = 0
+    users.forEach((num) => num.Paid ? recpri += num.Price : null)
+
     return (
         <div>
             <div className="AdminDiv">
@@ -83,7 +88,7 @@ function Admin() {
                                 <th>House</th>
                                 <th>Address</th>
                                 <th>Section</th>
-                                <th>Items</th>
+                                <th style={{ padding: "0rem 6rem" }}>Items</th>
                                 <th>Total Rs.</th>
                                 <th style={sectionD === "Orders" ? { display: "none" } : null}>Delivered ?</th>
                                 <th style={sectionD === "Orders" ? { display: "none" } : null}>Paid</th>
@@ -115,8 +120,26 @@ function Admin() {
                             })}
                         </tbody>
                     </table>
+                    <div className="table" style={{ marginTop: "5rem", position: "absolute", width: "calc(100% - 6rem)" }}>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Grand Total</th>
+                                    <th style={sectionD === "Orders" ? { display: "none" } : null}>Received</th>
+                                    <th style={sectionD === "Orders" ? { display: "none" } : null}>To be Received</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style={{ textAlign: "center" }}>{arrpri.reduce((a, b) => a + b, 0)}</td>
+                                    <td style={sectionD === "Orders" ? { display: "none" } : { textAlign: "center" }}>{recpri}</td>
+                                    <td style={sectionD === "Orders" ? { display: "none" } : { textAlign: "center" }}>{arrpri.reduce((a, b) => a + b, 0) - recpri}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <button className="printBtn" onClick={window.print}>Print</button>
+                <div className="printBtnDiv"><button className="printBtn" onClick={window.print}>Print</button></div>
             </div>
         </div>
     )

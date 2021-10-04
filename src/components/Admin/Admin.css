@@ -67,10 +67,15 @@ table th {
     font-size: x-large;
     font-weight: 600;
 }
-
+.printBtnDiv{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 12rem;
+}
 .printBtn {
-    width: 5rem;
-    height: 2.5rem;
+    padding: .4rem 1.5rem;
+    margin: 2rem 0rem;
     background-color: blue;
     font-size: 1.2rem;
     font-weight: 600;
@@ -78,15 +83,12 @@ table th {
     text-align: center;
     border: 1px solid white;
     border-radius: 5px;
-    position: absolute;
-    left: calc(50% - 2rem);
     transition: .8s ease;
 }
 
 .printBtn:hover {
-    background-color: #000096e0;
+    background-color: rgb(0, 0, 73);
     color: white;
-    border: 2px solid blue;
 }
 
 @media print {

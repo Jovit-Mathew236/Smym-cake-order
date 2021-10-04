@@ -48,6 +48,12 @@ function Deliverdata() {
     })
 
 
+    let arrpri = []
+    users.forEach((num) => arrpri = [...arrpri, num.Price])
+    let recpri = 0
+    users.forEach((num) => num.Paid ? recpri += num.Price : null)
+
+    // console.log();
     return (
         <div>
             <div className="parentDelivery">
@@ -91,7 +97,7 @@ function Deliverdata() {
                                     <th>House</th>
                                     <th>Address</th>
                                     <th>Section</th>
-                                    <th>Items</th>
+                                    <th style={{ padding: "0rem 6rem" }}>Items</th>
                                     <th>Total Rs.</th>
                                     <th style={sectionD === "Orders" ? { display: "none" } : null}>Delivered ?</th>
                                     <th style={sectionD === "Orders" ? { display: "none" } : null}>Paid ?</th>
@@ -112,7 +118,9 @@ function Deliverdata() {
                                                 <li key={index} style={{ listStyle: "none" }}>{index + 1} {" "} {obj.items} ({obj.kg}) [{obj.nos}]</li>
                                             )
                                         })}</td>
+
                                         <td>{user.Price}</td>
+
                                         <td style={sectionD === "Orders" ? { display: "none" } : null}><input disabled={user.Deliverd ? true : inpStatus} checked={user.Deliverd} onChange={(e) => {
                                             firebase.firestore().collection(sectionD).doc(user.id).update({
                                                 Deliverd: e.target.checked
@@ -147,6 +155,10 @@ function Deliverdata() {
                                                     Numbers: res.data().Numbers + 1
                                                 })
                                             })
+                                            // let recPri = 0
+                                            // if(user.Paid){
+                                            //     recPri += user.Price
+                                            // }
                                         }} type="checkbox" /></td>
                                         <td style={sectionD === "Orders" ? { display: "none", wordWrap: "break-word" } : null}><textarea onChange={(e) => {
                                             firebase.firestore().collection(sectionD).doc(user.id).update({
@@ -159,8 +171,26 @@ function Deliverdata() {
                             </tbody>
                         </table>
                     </div>
+                    <div className="table" style={{ marginTop: "5rem", position: "absolute", width: "calc(100% - 4rem)" }}>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Grand Total</th>
+                                    <th style={sectionD === "Orders" ? { display: "none" } : null}>Received</th>
+                                    <th style={sectionD === "Orders" ? { display: "none" } : null}>To be Received</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style={{ textAlign: "center" }}>{arrpri.reduce((a, b) => a + b, 0)}</td>
+                                    <td style={sectionD === "Orders" ? { display: "none" } : { textAlign: "center" }}>{recpri}</td>
+                                    <td style={sectionD === "Orders" ? { display: "none" } : { textAlign: "center" }}>{arrpri.reduce((a, b) => a + b, 0) - recpri}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <button className="printBtn" onClick={window.print}>Print</button>
+                <div className="printBtnDiv"><button className="printBtn" onClick={window.print}>Print</button></div>
 
 
             </div>
