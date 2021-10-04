@@ -106,7 +106,7 @@ function Admin() {
                                             <li key={index} style={{ listStyle: "none" }}>{index + 1} {" "} {obj.items} ({obj.kg}) [{obj.nos}]</li>
                                         )
                                     })}</td>
-                                    <td>{user.Items[user.Items.length - 1].price}</td>
+                                    <td>{user.Price}</td>
                                     {/* {user.Paid ? myFun : null} */}
                                     <td style={sectionD === "Orders" ? { display: "none" } : null}>{user.Deliverd ? "Yes" : "No"}</td>
                                     <td style={sectionD === "Orders" ? { display: "none" } : null}>{user.Paid ? "Yes" : "No"}</td>
