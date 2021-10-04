@@ -68,7 +68,7 @@ function Deliverdata() {
                         <option value="Orders-Place4">Place 4</option>
                     </select>
                 </div>
-                <div className="dataDiv" style={{ margin: "5rem 0rem" }}>
+                <div className="dataDiv" style={sectionD === "Orders" ? { display: "none" } : { margin: "5rem 0rem" }}>
                     <div className="data T-Order">
                         <h2>Total Orders</h2>
                         <input type="text" value={users.length} disabled />
