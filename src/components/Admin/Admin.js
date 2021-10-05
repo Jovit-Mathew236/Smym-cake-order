@@ -121,7 +121,7 @@ function Admin() {
                         </tbody>
                     </table>
                     <div className="table" style={{ marginTop: "5rem", position: "absolute", width: "calc(100% - 6rem)" }}>
-                        <table>
+                        <table className="summeryTable">
                             <thead>
                                 <tr>
                                     <th>Grand Total</th>

@@ -172,7 +172,7 @@ function Deliverdata() {
                         </table>
                     </div>
                     <div className="table" style={{ marginTop: "5rem", position: "absolute", width: "calc(100% - 4rem)" }}>
-                        <table>
+                        <table className="summeryTable">
                             <thead>
                                 <tr>
                                     <th>Grand Total</th>
