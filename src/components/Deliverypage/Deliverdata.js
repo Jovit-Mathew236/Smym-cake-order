@@ -171,7 +171,9 @@ function Deliverdata() {
                             </tbody>
                         </table>
                     </div>
+                    
                     <div className="table" style={{ marginTop: "5rem", position: "absolute", width: "calc(100% - 4rem)" }}>
+                    <h2 style={{margin:"2rem"}}>Summary of Orders</h2>
                         <table className="summeryTable">
                             <thead>
                                 <tr>
