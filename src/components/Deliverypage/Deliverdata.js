@@ -7,22 +7,15 @@ function Deliverdata() {
     const [closedNo, setClosedNo] = useState(0)
     const [users, setUsers] = useState([])
     const [sectionD, setSectionD] = useState('Orders')
-    const [inpStatus, setInpStatus] = useState(true)
     const { firebase } = useContext(FirebaseContext)
+    const [inpStatus, setInpStatus] = useState(true)
+
     const themeBtn = () => {
         var element = document.getElementById("themeId");
         element.classList.toggle("theme2");
         var ele = document.getElementById("body");
         ele.classList.toggle("body2")
     }
-
-    const updateBal = () => {
-        setInpStatus(true)
-    }
-    const editBal = () => {
-        setInpStatus(false)
-    }
-
 
     firebase.firestore().collection(sectionD + 2).doc("MdgtAnaVVDzYMAPgQJIP").get().then((res) => {
         setDeliverNo(res.data().Number)
@@ -35,7 +28,6 @@ function Deliverdata() {
         console.log(error.message);
     })
     useEffect(() => {
-        // console.log(sectionD);
         firebase.firestore().collection(sectionD).get().then((snapshot) => {
             const alldocs = snapshot.docs.map((user) => {
                 return {
@@ -53,7 +45,10 @@ function Deliverdata() {
     let recpri = 0
     users.forEach((num) => num.Paid ? recpri += num.Price : null)
 
-    // console.log();
+
+    const updateBal = () => setInpStatus(true)
+    const editBal = () => setInpStatus(false)
+
     return (
         <div>
             <div className="parentDelivery">
@@ -68,6 +63,7 @@ function Deliverdata() {
                         <option value="Orders-Place4">Place 4</option>
                     </select>
                 </div>
+
                 <div className="dataDiv" style={sectionD === "Orders" ? { display: "none" } : { margin: "5rem 0rem" }}>
                     <div className="data T-Order">
                         <h2>Total Orders</h2>
@@ -84,6 +80,7 @@ function Deliverdata() {
                         <input type="text" value={closedNo} disabled />
                     </div>
                 </div>
+
                 {/* <button onClick={Plasec}>click</button> */}
                 <button className="editBtn" onClick={editBal}>Edit</button>
                 <button className="subBtn" onClick={updateBal}>Submit</button>
@@ -171,9 +168,9 @@ function Deliverdata() {
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <div className="table" style={{ marginTop: "5rem", position: "absolute", width: "calc(100% - 4rem)" }}>
-                    <h2 style={{margin:"2rem"}}>Summary of Orders</h2>
+                        <h2 style={{ margin: "2rem" }}>Summary of Orders</h2>
                         <table className="summeryTable">
                             <thead>
                                 <tr>

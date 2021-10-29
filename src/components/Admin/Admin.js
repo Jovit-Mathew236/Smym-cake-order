@@ -1,15 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react'
-import './Admin.css'
 import { FirebaseContext } from '../../store/Contexts'
-// import $ from "jquery";
+import './Admin.css'
 
 function Admin() {
     const [deliverNo, setDeliverNo] = useState(0)
     const [closedNo, setClosedNo] = useState(0)
-    const { firebase } = useContext(FirebaseContext)
     const [users, setUsers] = useState([])
     const [sectionD, setSectionD] = useState('Orders')
-    // var TRow =  $("#dataTable tr").length
+    const { firebase } = useContext(FirebaseContext)
+
+
+    const themeBtn = () => {
+        var element = document.getElementById("themeId");
+        element.classList.toggle("theme2");
+        var ele = document.getElementById("body");
+        ele.classList.toggle("body2")
+    }
+
     firebase.firestore().collection(sectionD + 2).doc("MdgtAnaVVDzYMAPgQJIP").get().then((res) => {
         setDeliverNo(res.data().Number)
         // console.log(res.data());
@@ -22,7 +29,6 @@ function Admin() {
     })
     useEffect(() => {
         firebase.firestore().collection(sectionD).get().then((snapshot) => {
-            // console.log(snapshot.docs);
             const alldocs = snapshot.docs.map((user) => {
                 return {
                     ...user.data(),
@@ -30,22 +36,18 @@ function Admin() {
                 }
             })
             setUsers(alldocs)
-            // console.log(alldocs);
         })
     })
 
-
-    const themeBtn = () => {
-        var element = document.getElementById("themeId");
-        element.classList.toggle("theme2");
-        var ele = document.getElementById("body");
-        ele.classList.toggle("body2")
-    }
 
     let arrpri = []
     users.forEach((num) => arrpri = [...arrpri, num.Price])
     let recpri = 0
     users.forEach((num) => num.Paid ? recpri += num.Price : null)
+
+
+
+
 
     return (
         <div>
@@ -61,6 +63,7 @@ function Admin() {
                         <option value="Orders-Place4">Place 4</option>
                     </select>
                 </div>
+
                 <div className="dataDiv">
                     <div className="data T-Order">
                         <h2>Total Orders</h2>
@@ -77,6 +80,7 @@ function Admin() {
                         <input type="text" value={closedNo} disabled />
                     </div>
                 </div>
+
                 <div className="dataCollection">
                     <table id="dataTable">
                         <thead>
@@ -121,7 +125,7 @@ function Admin() {
                         </tbody>
                     </table>
                     <div className="table" style={{ marginTop: "5rem", position: "absolute", width: "calc(100% - 6rem)" }}>
-                    <h2 style={{margin:"2rem"}}>Summary of Orders</h2>
+                        <h2 style={{ margin: "2rem" }}>Summary of Orders</h2>
                         <table className="summeryTable">
                             <thead>
                                 <tr>

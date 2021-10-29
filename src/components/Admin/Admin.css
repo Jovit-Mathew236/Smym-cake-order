@@ -53,7 +53,7 @@
     overflow-x: auto;
 }
 
-table {
+/* table {
     width: 100%;
     border-collapse: collapse;
 }
@@ -61,12 +61,12 @@ table {
 table tr th, td, table {
     padding: .2rem 1rem;
     border: 1px solid black;
-}
+} */
 
-table th {
+/* table th {
     font-size: x-large;
     font-weight: 600;
-}
+} */
 .printBtnDiv{
     width: 100%;
     display: flex;

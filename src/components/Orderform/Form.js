@@ -2,6 +2,9 @@ import React, { useContext, useState } from 'react'
 import './Form.css'
 import { FirebaseContext } from '../../store/Contexts'
 import { useHistory } from 'react-router-dom'
+import Times from '../../assets/Times'
+// import AlertBox from '../../assets/AlertBox'
+// import {AlertBox} from '../../assets/AlertBox'
 
 function Form() {
     const { firebase } = useContext(FirebaseContext)
@@ -17,6 +20,7 @@ function Form() {
     const [kg, setKg] = useState('')
     const [nos, setNos] = useState("0")
 
+    const [priSet, setPriSet] = useState(0)
     const [itemArray, setItemArray] = useState([])
     const [divMap, setDivMap] = useState([1])
     const date = new Date()
@@ -26,7 +30,9 @@ function Form() {
             if (kg !== "" && nos !== "") {
                 setDivMap([...divMap, count + 1])
                 setItemArray([...itemArray, { price, items, kg, nos }])
-
+                // setPriSet(pri.reduce((a,b)=>a+b,0));
+                let varpri = pri.reduce((a, b) => a + b, 0)
+                setPriSet(varpri)
             } else {
                 alert("Please fill the item details")
             }
@@ -34,13 +40,26 @@ function Form() {
             alert("Please fill the item details")
         }
     }
-
+    const fuNc = () => {
+        let varpri = pri.reduce((a, b) => a + b, 0)
+        setPriSet(varpri)
+        return true
+    }
     const myFunc = () => {
         if (section !== "" && items !== "") {
             if (kg !== "" && nos !== "") {
                 if (name !== "" && address !== "") {
                     if (phone !== "" && house !== "") {
+
+                        fuNc((value) => {
+                            if (value === true) {
+                                setItemArray([...itemArray, { price, items, kg, nos }])
+                            } else {
+                                alert("Something went Wrong")
+                            }
+                        })
                         setItemArray([...itemArray, { price, items, kg, nos }])
+                        // setPriSet(pri.reduce((a,b)=>a+b,0));
                     }
                 }
             }
@@ -55,14 +74,29 @@ function Form() {
         pri = [...pri, pri2]
     })
 
-
-    var varpri = pri.reduce((a, b) => a + b, 0)
-    console.log(varpri);
-
-
-
+    console.log(pri.reduce((a, b) => a + b, 0));
     // console.log(itemArray);
 
+    
+       
+
+    const okFunc = () => {
+        var pop = document.getElementById("pop")
+        var popcont = document.getElementById("popcont")
+        pop.classList.remove("hide")
+        pop.classList.add("show")
+        popcont.classList.add("alert-container-show")
+        setTimeout(()=>{
+            pop.classList.remove("show")
+        pop.classList.add("hide")
+        },5000)
+    }
+    const closeFunc = ()=>{
+        var pop = document.getElementById("pop")
+        pop.classList.remove("show")
+        pop.classList.add("hide")
+    }
+    
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -74,7 +108,7 @@ function Form() {
             Items: itemArray,
             Address: address,
             CreatedDate: date.toDateString(),
-            Price: varpri
+            Price: priSet
         }).catch((error) => {
             console.log(error.message);
         })
@@ -87,13 +121,13 @@ function Form() {
                 Items: itemArray,
                 Address: address,
                 CreatedDate: date.toDateString(),
-                Price: varpri,
+                Price: priSet,
                 Deliverd: false,
                 Paid: false,
                 Comment: ""
             }).then(() => {
-                alert("You successfully Ordered")
-                history.go(0)
+                okFunc()
+                setTimeout(history.go(0),4000)
             }).catch((error) => {
                 console.log(error.message);
             })
@@ -107,13 +141,13 @@ function Form() {
                 Items: itemArray,
                 Address: address,
                 CreatedDate: date.toDateString(),
-                Price: varpri,
+                Price: priSet,
                 Deliverd: false,
                 Paid: false,
                 Comment: ""
             }).then(() => {
-                alert("You successfully Ordered")
-                history.go(0)
+                okFunc()
+                setTimeout(history.go(0),4000)
             }).catch((error) => {
                 console.log(error.message);
             })
@@ -127,13 +161,13 @@ function Form() {
                 Items: itemArray,
                 Address: address,
                 CreatedDate: date.toDateString(),
-                Price: varpri,
+                Price: priSet,
                 Deliverd: false,
                 Paid: false,
                 Comment: ""
             }).then(() => {
-                alert("You successfully Ordered")
-                history.go(0)
+                okFunc()
+                setTimeout(history.go(0),4000)
             }).catch((error) => {
                 console.log(error.message);
             })
@@ -148,13 +182,13 @@ function Form() {
                 Items: itemArray,
                 Address: address,
                 CreatedDate: date.toDateString(),
-                Price: varpri,
+                Price: priSet,
                 Deliverd: false,
                 Paid: false,
                 Comment: ""
             }).then(() => {
-                alert("You successfully Ordered")
-                history.go(0)
+                okFunc()
+                setTimeout(history.go(0),4000)
             }).catch((error) => {
                 console.log(error.message);
             })
@@ -253,8 +287,6 @@ function Form() {
                                             if (value === '10') {
                                                 setPrice(price * 10)
                                             }
-                                            let varpri = pri.reduce((a, b) => a + b, 0)
-                                            console.log(varpri);
                                         }} required>
                                             <option value="">Nos.</option>
                                             <option value="1">1</option>
@@ -268,9 +300,10 @@ function Form() {
                                             <option value="9">9</option>
                                             <option value="10">10</option>
                                         </select>
+
                                     </div>
                                 )
-                            })}<p className="additem-btn" onClick={addItem}>+</p>
+                            })}<p className="additem-btn" onClick={addItem} style={{transform: "rotate(45deg)"}}><Times/></p>
 
 
 
@@ -281,12 +314,27 @@ function Form() {
                         </form>
                     </div>
                 </div>
+                
                 {/* <div className="liveOrder">
                     <div className="Datafield">
                         <h3>Live order No</h3>
                         <p>00</p>
                     </div>
                 </div> */}
+            </div>
+            <div className="alertDiv">
+            <div id="popcont" className="alert-container">
+                <div id="pop" className="alert-box hide">
+                    <div className="alert-contant">
+                        <h1>Succsess</h1>
+                        <hr />
+                        <form>
+                        <p>You ordered Successfull, Thankyou</p>
+                        <button className="alert--ok-btn" onClick={closeFunc}>Ok</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
             </div>
         </div>
     )
