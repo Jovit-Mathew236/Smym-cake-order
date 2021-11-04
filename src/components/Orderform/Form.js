@@ -23,6 +23,7 @@ function Form() {
     const [priSet, setPriSet] = useState(0)
     const [itemArray, setItemArray] = useState([])
     const [divMap, setDivMap] = useState([1])
+    const [disply, setDisply] = useState("none")
     const date = new Date()
     const count = divMap.length
     const addItem = () => {
@@ -77,8 +78,8 @@ function Form() {
     console.log(pri.reduce((a, b) => a + b, 0));
     // console.log(itemArray);
 
-    
-       
+
+
 
     const okFunc = () => {
         var pop = document.getElementById("pop")
@@ -86,17 +87,30 @@ function Form() {
         pop.classList.remove("hide")
         pop.classList.add("show")
         popcont.classList.add("alert-container-show")
-        setTimeout(()=>{
+        setTimeout(() => {
             pop.classList.remove("show")
-        pop.classList.add("hide")
-        },5000)
+            pop.classList.add("hide")
+        }, 5000)
     }
-    const closeFunc = ()=>{
+    const closeFunc = () => {
         var pop = document.getElementById("pop")
         pop.classList.remove("show")
         pop.classList.add("hide")
     }
-    
+
+    const phoneWarn = (e) => {
+        e.preventDefault()
+        setPhone(e.target.value)
+        if (e.target.value.length !== 10 | e.target.value === "          ") {
+            setDisply("block")
+        } else if (e.target.value.length === 10) {
+            setDisply("none")
+        }
+        else {
+            setDisply("none")
+        }
+    }
+
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -127,7 +141,7 @@ function Form() {
                 Comment: ""
             }).then(() => {
                 okFunc()
-                setTimeout(history.go(0),4000)
+                setTimeout(history.go(0), 4000)
             }).catch((error) => {
                 console.log(error.message);
             })
@@ -147,7 +161,7 @@ function Form() {
                 Comment: ""
             }).then(() => {
                 okFunc()
-                setTimeout(history.go(0),4000)
+                setTimeout(history.go(0), 4000)
             }).catch((error) => {
                 console.log(error.message);
             })
@@ -167,7 +181,7 @@ function Form() {
                 Comment: ""
             }).then(() => {
                 okFunc()
-                setTimeout(history.go(0),4000)
+                setTimeout(history.go(0), 4000)
             }).catch((error) => {
                 console.log(error.message);
             })
@@ -188,7 +202,7 @@ function Form() {
                 Comment: ""
             }).then(() => {
                 okFunc()
-                setTimeout(history.go(0),4000)
+                setTimeout(history.go(0), 4000)
             }).catch((error) => {
                 console.log(error.message);
             })
@@ -204,7 +218,8 @@ function Form() {
                     <div className="form">
                         <form onSubmit={handleSubmit} autoComplete="true">
                             <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name..." name="" id="" required />
-                            <input type="tel" pattern="[0-9]{10}" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Phone No." name="" id="" required />
+                            <input type="tel" pattern="[0-9]{10}" value={phone} onChange={phoneWarn} placeholder="Phone No." name="" id="" required />
+                            <p style={disply === "none" ? { display: "none" } : { display: "block" }} className="war_text">Please fill valied No.</p>
                             <input type="text" value={house} onChange={(e) => setHouse(e.target.value)} placeholder="House Name..." name="" id="" required />
                             <select name="Section" value={section} onChange={(e) => setSection(e.target.value)} id="sectionlist" required>
                                 <option value="">Select your Section</option>
@@ -303,7 +318,7 @@ function Form() {
 
                                     </div>
                                 )
-                            })}<p className="additem-btn" onClick={addItem} style={{transform: "rotate(45deg)"}}><Times/></p>
+                            })}<p className="additem-btn" onClick={addItem} style={{ transform: "rotate(45deg)" }}><Times /></p>
 
 
 
@@ -314,7 +329,7 @@ function Form() {
                         </form>
                     </div>
                 </div>
-                
+
                 {/* <div className="liveOrder">
                     <div className="Datafield">
                         <h3>Live order No</h3>
@@ -323,18 +338,18 @@ function Form() {
                 </div> */}
             </div>
             <div className="alertDiv">
-            <div id="popcont" className="alert-container">
-                <div id="pop" className="alert-box hide">
-                    <div className="alert-contant">
-                        <h1>Succsess</h1>
-                        <hr />
-                        <form>
-                        <p>You ordered Successfull, Thankyou</p>
-                        <button className="alert--ok-btn" onClick={closeFunc}>Ok</button>
-                        </form>
+                <div id="popcont" className="alert-container">
+                    <div id="pop" className="alert-box hide">
+                        <div className="alert-contant">
+                            <h1>Succsess</h1>
+                            <hr />
+                            <form>
+                                <p>You ordered Successfull, Thankyou</p>
+                                <button className="alert--ok-btn" onClick={closeFunc}>Ok</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
         </div>
     )
